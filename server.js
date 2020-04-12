@@ -16,8 +16,17 @@ const io = socketio(server);
 app.use(express.static(path.join(__dirname, 'public')));
 
 io.on('connection', socket => {
-    console.log('New websocket connection')
+    
     socket.emit('message', 'Welcome to chatcord!')
+
+
+    //broadcast whn a usr connects
+
+    socket.broadcast.emit('message', 'A user has joined the chat');
+
+    socket.on('disconnect', () => {
+        io.emit('message', 'A user has left the chat')
+    })
 });
 
 
