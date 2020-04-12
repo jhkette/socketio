@@ -16,14 +16,14 @@ const io = socketio(server);
 app.use(express.static(path.join(__dirname, 'public')));
 
 io.on('connection', socket => {
-    
+    // message to the user 
     socket.emit('message', 'Welcome to chatcord!')
 
 
-    //broadcast whn a usr connects
-
+    //broadcast whn a usr connects - but not to user
     socket.broadcast.emit('message', 'A user has joined the chat');
 
+    // when client disconnects
     socket.on('disconnect', () => {
         io.emit('message', 'A user has left the chat')
     })
