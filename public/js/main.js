@@ -8,10 +8,10 @@ const { username, room } = Qs.parse(location.search, {
   ignoreQueryPrefix: true
 });
 
-const socket = io();
+const socket = io(); //initialise socket variable
 
 // Join chatroom
-socket.emit('joinRoom', { username, room });
+socket.emit('joinRoom', { username, room }); // emit to server the username and room the comes from query string
 
 // Get room and users
 socket.on('roomUsers', ({ room, users }) => {
@@ -24,11 +24,11 @@ socket.on('message', message => {
   console.log(message);
   outputMessage(message);
 
-  // Scroll down
+  // Scroll down 
   chatMessages.scrollTop = chatMessages.scrollHeight;
 });
 
-// Message submit
+// Message submit -- chat form
 chatForm.addEventListener('submit', e => {
   e.preventDefault();
 
